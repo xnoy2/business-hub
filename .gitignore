@@ -22,6 +22,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# lock file — generated per-platform during CI/Railway build
+package-lock.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
