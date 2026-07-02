@@ -141,7 +141,8 @@ export interface ModuleDef {
 }
 
 export const modules: ModuleDef[] = [
-  { key: "client", title: "Client Portal", desc: "Manage client projects, documents, quotes and communications.", icon: "client" },
+  { key: "bgr-portal", title: "BGR Client Portal", desc: "Bespoke Garden Rooms client projects, quotes and communications.", icon: "garden" },
+  { key: "bcf-portal", title: "BCF Client Portal", desc: "Ballycastle Climbing Frames client projects, quotes and communications.", icon: "frame" },
   { key: "staff", title: "Staff Portal", desc: "Access HR, training, SOPs, tasks and internal resources.", icon: "staff" },
   { key: "sales", title: "Sales Tracker", desc: "Track leads, pipeline, conversions and team performance.", icon: "sales" },
   { key: "garden", title: "Garden Room Configurator", desc: "Configure, price and visualise bespoke garden rooms.", icon: "garden" },
@@ -155,24 +156,21 @@ export const modules: ModuleDef[] = [
    The Client Portal is business-aware: it follows the workspace
    switcher to the matching brand's portal.
    ============================================================ */
-const clientPortalByBusiness: Record<BusinessId, string> = {
-  bgr: "https://portal.bespokegardenroomsballycastle.co.uk/",
-  bcf: "https://portal.ballycastleclimbingframes.co.uk/",
-  group: "https://portal.bespokegardenroomsballycastle.co.uk/",
-};
-
 const staticModuleUrls: Record<string, string> = {
-  staff: "https://staff.bespokegardenroomsballycastle.co.uk/",
-  sales: "https://ghl-sales-dashboard.vercel.app/login",
-  ai: "https://revenueai.ballycastleclimbingframes.co.uk/",
-  ceo: "https://bcf-dashboard.onrender.com/auth/login.php",
-  bcf: "https://portal.ballycastleclimbingframes.co.uk/configurator",
-  garden: "https://bgr-configurator-app.vercel.app/",
+  "bgr-portal": "https://portal.bespokegardenroomsballycastle.co.uk/login",
+  "bcf-portal": "https://portal.ballycastleclimbingframes.co.uk/login",
+  staff:        "https://staff.bespokegardenroomsballycastle.co.uk/",
+  sales:        "https://sales-dashboard.ballycastleclimbingframes.co.uk/login",
+  ai:           "https://revenueai.ballycastleclimbingframes.co.uk/",
+  ceo:          "https://dashboard.bespokegardenroomsballycastle.co.uk/",
+  bcf:          "https://portal.ballycastleclimbingframes.co.uk/configurator",
+  garden:       "https://bgr-configurator-app.vercel.app/",
 };
 
 /** Module keys that are backed by a live, deployed site. */
 export const liveModuleKeys = new Set([
-  "client",
+  "bgr-portal",
+  "bcf-portal",
   "staff",
   "sales",
   "ai",
@@ -184,9 +182,8 @@ export const liveModuleKeys = new Set([
 /** Resolve a module's embed URL for the current business, or null if "to build". */
 export function resolveModuleUrl(
   moduleKey: string,
-  businessId: BusinessId
+  _businessId: BusinessId
 ): string | null {
-  if (moduleKey === "client") return clientPortalByBusiness[businessId];
   return staticModuleUrls[moduleKey] ?? null;
 }
 
@@ -197,16 +194,17 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { key: "dashboard", label: "Dashboard", icon: "dashboard" },
-  { key: "client", label: "Client Portal", icon: "client" },
-  { key: "staff", label: "Staff Portal", icon: "staff" },
-  { key: "sales", label: "Sales Tracker", icon: "sales" },
-  { key: "garden", label: "Garden Room Configurator", icon: "garden" },
-  { key: "bcf", label: "BCF Configurator", icon: "frame" },
-  { key: "ceo", label: "CEO Dashboard", icon: "ceo" },
-  { key: "ai", label: "Marketing AI", icon: "ai" },
-  { key: "tasks", label: "Tasks", icon: "tasks" },
-  { key: "documents", label: "Documents", icon: "docs" },
-  { key: "reports", label: "Reports", icon: "reports" },
-  { key: "settings", label: "Settings", icon: "settings" },
+  { key: "dashboard",  label: "Dashboard",            icon: "dashboard" },
+  { key: "bgr-portal", label: "BGR Client Portal",    icon: "client" },
+  { key: "bcf-portal", label: "BCF Client Portal",    icon: "client" },
+  { key: "staff",      label: "Staff Portal",         icon: "staff" },
+  { key: "sales",      label: "Sales Tracker",        icon: "sales" },
+  { key: "garden",     label: "Garden Room Conf...",  icon: "garden" },
+  { key: "bcf",        label: "BCF Configurator",     icon: "frame" },
+  { key: "ceo",        label: "CEO Dashboard",        icon: "ceo" },
+  { key: "ai",         label: "Marketing AI",         icon: "ai" },
+  { key: "tasks",      label: "Tasks",                icon: "tasks" },
+  { key: "documents",  label: "Documents",            icon: "docs" },
+  { key: "reports",    label: "Reports",              icon: "reports" },
+  { key: "settings",   label: "Settings",             icon: "settings" },
 ];
